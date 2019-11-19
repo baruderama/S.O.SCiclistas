@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/emergencies/tabs/my-emergencies"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Emergencia</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="editEmergency()" [disabled]="!form?.valid">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="isLoading" text-center>
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <form [formGroup]="form" *ngIf="!isLoading">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Titulo</ion-label>
+            <ion-input type="text" autocomplete autocorrect formControlName="title">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Descripcion</ion-label>
+            <ion-textarea rows="3" formControlName="description"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!this.form.get('description').valid && this.form.get('description').touched">
+        <ion-col size-sm="6" offset-sm="3">
+          <p>Description must be between 1 and 180 characters.</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Hay personas lesionadas?</ion-label>
+            <ion-checkbox color="primary" (click)="checkLesionados($event)"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Estas en el punto del incidente?</ion-label>
+            <ion-checkbox color="primary" (click)="checkPuntoIncidente($event)"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Cuantos lesionados hay?</ion-label>
+            <ion-input type="number" [(ngModel)]="emergency.numLesionados" autocomplete autocorrect
+              formControlName="numLesionados"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Alguien esta atrapado en un vehiculo?</ion-label>
+            <ion-checkbox color="primary" (click)="checkAtrapados($event)"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Alguien esta inconsiente o sangrando abundantemente?</ion-label>
+            <ion-checkbox color="primary" (click)="checkInconsientes($event)"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col size-sm="3" offset-sm="3">
+            <app-location-picker></app-location-picker>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

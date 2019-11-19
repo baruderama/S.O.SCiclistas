@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/auth"></ion-back-button>
+        </ion-buttons>
+      <ion-title>
+          Chateando...
+          <ion-input placeholder="¿Quién eres?" [(ngModel)]="userName"></ion-input>
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" #content padding id="content">
+  <ion-card *ngFor="let message of messages">
+      <ion-card-header>
+          {{message.nombre}} dice:
+      </ion-card-header>
+      <ion-card-content>
+          {{message.mensaje}}
+      </ion-card-content>
+  </ion-card>
+  <div id="content-end"></div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <ion-input placeholder="escribe algo..." [(ngModel)]="message"></ion-input>
+      <ion-buttons end>
+          <button ion-button icon-right (click)="sendMessage()">
+          Enviar
+        <ion-icon name="send"></ion-icon>
+      </button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

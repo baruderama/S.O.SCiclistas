@@ -1,0 +1,8 @@
+{
+  "name": "SOS-Ciclistas",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
