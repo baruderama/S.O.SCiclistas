@@ -5,6 +5,7 @@ import { take, map, tap, switchMap } from 'rxjs/operators';
 import { Emergency } from './emergency.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { EmergencyLocation } from './location.model';
 
 interface EmergencyData {
   atrapados: string;
@@ -16,6 +17,7 @@ interface EmergencyData {
   puntoIncidente: string;
   titulo: string;
   userId: string;
+  location: EmergencyLocation;
 }
 
 @Injectable({
@@ -87,7 +89,8 @@ export class EmergenciesService {
             emergencyData.inconsientes,
             emergencyData.descripcion,
             emergencyData.imageUrl,
-            emergencyData.userId
+            emergencyData.userId,
+            emergencyData.location
           );
   })
       );
@@ -99,7 +102,8 @@ addEmergency(titulo: string,
              numLesionados: number,
              atrapados: string,
              inconsientes: string,
-             descripcion: string
+             descripcion: string,
+             location: EmergencyLocation
 ) {
   let firebaseId: string;
   const newEmergency = new Emergency(
@@ -111,8 +115,9 @@ addEmergency(titulo: string,
     atrapados,
     inconsientes,
     descripcion,
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT7JuSN3UXgq1AQ1Y2zBcSUMWiOkpsY0S2dWMWkB2-wRDG7n2kt',
-    this.authService.userId
+    'https://www.rdiserviciosjuridicos.com/wp-content/uploads/2018/12/atropello-2_opt.jpg',
+    this.authService.userId,
+    location
   );
   return this.http
     .post<{ name: string }>('https://bd-sosciclistas.firebaseio.com/lista-emergencias.json',
@@ -155,7 +160,8 @@ editEmergency(emergencyId: string, titulo: string, descripcion: string) {
         oldEmergency.inconsientes,
         descripcion,
         oldEmergency.imageUrl,
-        oldEmergency.userId
+        oldEmergency.userId,
+        oldEmergency.location
       );
       return this.http.put(
         `https://bd-sosciclistas.firebaseio.com/lista-emergencias/${emergencyId}.json`,
@@ -201,7 +207,8 @@ fetchEmergencies() {
             resData[key].inconsientes,
             resData[key].descripcion,
             resData[key].imageUrl,
-            resData[key].userId
+            resData[key].userId,
+            resData[key].location
           ));
         }
       }

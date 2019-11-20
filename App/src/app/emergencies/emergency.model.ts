@@ -1,3 +1,5 @@
+import { EmergencyLocation } from './location.model';
+
 export class Emergency {
     constructor(public id: string,
                 public titulo: string,
@@ -8,5 +10,6 @@ export class Emergency {
                 public inconsientes: string,
                 public descripcion: string,
                 public imageUrl: string,
-                public userId: string) {}
+                public userId: string,
+                public location: EmergencyLocation) {}
 }

@@ -36,6 +36,11 @@ const routes: Routes = [
               './my-emergencies/new-emergency/new-emergency.module#NewEmergencyPageModule'
           },
           {
+            path: 'other-emergencies',
+            loadChildren:
+              './my-emergencies/other-emergencies/other-emergencies.module#OtherEmergenciesPageModule'
+          },
+          {
             path: 'edit-emergency/:emergencyId',
             loadChildren:
               './my-emergencies/edit-emergency/edit-emergency.module#EditEmergencyPageModule'
@@ -78,7 +83,8 @@ const routes: Routes = [
         pathMatch: 'full'
       }
     ]
-  }
+  },
+  { path: 'other-emergencies', loadChildren: './my-emergencies/other-emergencies/other-emergencies.module#OtherEmergenciesPageModule' }
 ];
 
 @NgModule({

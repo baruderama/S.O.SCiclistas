@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AuthService } from './auth.service';
-import { LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
+import { LoadingController, AlertController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+
+import { AuthService, AuthResponseData } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -17,21 +18,51 @@ export class AuthPage implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController
+  ) { }
 
   ngOnInit() { }
 
-  onLogin() {
+  authenticate(email: string, password: string) {
     this.isLoading = true;
-    this.authService.login();
     this.loadingCtrl
-      .create({ keyboardClose: true, message: 'Logging in...' })
+      .create({ keyboardClose: true, message: 'Iniciando Sesion...' })
       .then(loadingEl => {
         loadingEl.present();
-        setTimeout(() => {
-          this.isLoading = false;
-          loadingEl.dismiss();
-        }, 1500);
+        let authObs: Observable<AuthResponseData>;
+        if (this.isLogin) {
+          authObs = this.authService.login(email, password);
+        } else {
+          authObs = this.authService.signup(email, password);
+        }
+        authObs.subscribe(
+          resData => {
+            if (email === 'johntonjohn7@gmail.com') {
+              this.isLoading = false;
+              loadingEl.dismiss();
+              this.router.navigateByUrl('/emergencies/tabs/admin-find');
+            } else {
+              console.log(resData);
+              this.isLoading = false;
+              loadingEl.dismiss();
+              this.router.navigateByUrl('/emergencies/tabs/find');
+            }
+          },
+          errRes => {
+            loadingEl.dismiss();
+            const code = errRes.error.error.message;
+            let message = 'No se puede iniciar sesion. Por favor intenta de nuevo.';
+            if (code === 'EMAIL_EXISTS') {
+              message = 'Esta direccion de correo electronico ya existe';
+            } else if (code === 'EMAIL_NOT_FOUND') {
+              message = 'La direccion de correo electronico no pudo ser encontrada.';
+            } else if (code === 'INVALID_PASSWORD') {
+              message = 'La contraseña es incorrecta.';
+            }
+            this.showAlert(message);
+          }
+        );
       });
   }
 
@@ -45,23 +76,17 @@ export class AuthPage implements OnInit {
     }
     const email = form.value.email;
     const password = form.value.password;
-    console.log(email, password);
 
-    if (this.isLogin) {
-      if (form.value.email === 'johntonjohn7@gmail.com') {
-        setTimeout(() => {
-          this.isLoading = false;
-          this.router.navigateByUrl('emergencies/tabs/admin-find');
-        }, 1500);
-      } else {
-        setTimeout(() => {
-          this.isLoading = false;
-          this.router.navigateByUrl('/emergencies/tabs/find');
-        }, 1500);
-      }
-    } else {
-      // Send a request to signup servers
-    }
+    this.authenticate(email, password);
   }
 
+  private showAlert(message: string) {
+    this.alertCtrl
+      .create({
+        header: 'Authentication failed',
+        message: message,
+        buttons: ['Okay']
+      })
+      .then(alertEl => alertEl.present());
+  }
 }

@@ -20,35 +20,40 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-    <ion-grid *ngIf="!isLoading">
+  <ion-grid *ngIf="!isLoading">
     <ion-row>
-        <ion-col size="12" size-sm="8" offset-sm="2" text-center>
-          <ion-text text-left>
-            <p>Lesionados: {{ emergency.lesionados }}</p>
-          </ion-text>
-          <ion-text text-left>
-            <p>Atrapados: {{ emergency.atrapados }}</p>
-          </ion-text>
-          <ion-text text-left>
-            <p>Inconsientes: {{ emergency.inconsientes }}</p>
-          </ion-text>
+      <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+        <ion-text text-left>
+          <p>Lesionados: {{ emergency.lesionados }}</p>
+        </ion-text>
+        <ion-text text-left>
+          <p>Atrapados: {{ emergency.atrapados }}</p>
+        </ion-text>
+        <ion-text text-left>
+          <p>Inconsientes: {{ emergency.inconsientes }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" no-padding>
+        <div class="center">
+          <ion-img [src]="emergency.imageUrl"></ion-img>
+        </div>
+        <ion-text text-left>
+          <p>Descripcion: </p>
+          <p>{{ emergency.descripcion }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="3" offset-sm="3" text-center>
+        <p>{{ emergency.location.address }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col size-sm="3" offset-sm="3" no-padding>
+          <ion-img class="location-image" [src]="emergency.location.staticMapImageUrl"></ion-img>
         </ion-col>
       </ion-row>
-    <ion-row>
-        <ion-col size="12" size-sm="8" offset-sm="2" text-center>
-          <div class="center">
-            <ion-img [src]="emergency.imageUrl"></ion-img>
-          </div>
-          <ion-text text-left>
-            <p>Descripcion: </p>
-            <p>{{ emergency.descripcion }}</p>
-          </ion-text>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col size-sm="3" offset-sm="3">
-            <app-location-picker></app-location-picker>
-          </ion-col>
-        </ion-row>
   </ion-grid>
 </ion-content>

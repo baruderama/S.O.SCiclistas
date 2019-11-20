@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Emergency } from '../../emergency.model';
 import { EmergenciesService } from '../../emergencies.service';
 import { Router } from '@angular/router';
+import { EmergencyLocation } from '../../location.model';
 
 @Component({
   selector: 'app-new-emergency',
@@ -38,16 +39,9 @@ export class NewEmergencyPage implements OnInit {
       descripcion: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.maxLength(180)]
-      })
+      }),
+      location: new FormControl(null, {validators: [Validators.required]})
     });
-  }
-
-  checkLesionados(e): void {
-    if (!e.currentTarget.checked) {
-      this.lesionados = 'si';
-    } else {
-      this.lesionados = 'no';
-    }
   }
 
   checkPuntoIncidente(e): void {
@@ -86,11 +80,16 @@ export class NewEmergencyPage implements OnInit {
         this.form.value.numLesionados,
         this.atrapados,
         this.inconsientes,
-        this.form.value.descripcion
+        this.form.value.descripcion,
+        this.form.value.location
       )
       .subscribe(() => {
         this.form.reset();
         this.router.navigate(['emergencies/tabs/my-emergencies']);
       });
+  }
+  onLocationPicked(location: EmergencyLocation) {
+    this.form.patchValue({location: location});
+
   }
 }

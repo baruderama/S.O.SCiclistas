@@ -1,56 +1,66 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/emergencies/tabs/admin-find"></ion-back-button>
-      </ion-buttons>
-      <ion-title>SOSCiclistas</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <div text-center *ngIf="isLoading" text-center>
-      <ion-spinner color="primary"></ion-spinner>
-    </div>
-    <ion-grid *ngIf="!isLoading">
-      <ion-row>
-        <ion-col size="12" size-sm="8" offset-sm="2" text-center>
-          <ion-title>
-            {{ isLoading ? 'Loading...' : emergency.titulo }}
-          </ion-title>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-      <ion-grid *ngIf="!isLoading">
-      <ion-row>
-          <ion-col size="12" size-sm="8" offset-sm="2" text-center>
-            <ion-text text-left>
-              <p>Lesionados: {{ emergency.lesionados }}</p>
-            </ion-text>
-            <ion-text text-left>
-              <p>Atrapados: {{ emergency.atrapados }}</p>
-            </ion-text>
-            <ion-text text-left>
-              <p>Inconsientes: {{ emergency.inconsientes }}</p>
-            </ion-text>
-          </ion-col>
-        </ion-row>
-      <ion-row>
-          <ion-col size="12" size-sm="8" offset-sm="2" text-center>
-            <div class="center">
-              <ion-img [src]="emergency.imageUrl"></ion-img>
-            </div>
-            <ion-text text-left>
-              <p>Descripcion: </p>
-              <p>{{ emergency.descripcion }}</p>
-            </ion-text>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-              <ion-button class="space-label" expand="block" (click)="deleteEmergency()">
-                Gestionar Emergencia
-              </ion-button>
-            </ion-col>
-          </ion-row>
-    </ion-grid>
-  </ion-content>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/emergencies/tabs/admin-find"></ion-back-button>
+    </ion-buttons>
+    <ion-title>SOSCiclistas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div text-center *ngIf="isLoading" text-center>
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+        <ion-title>
+          {{ isLoading ? 'Loading...' : emergency.titulo }}
+        </ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+        <ion-text text-left>
+          <p>Lesionados: {{ emergency.lesionados }}</p>
+        </ion-text>
+        <ion-text text-left>
+          <p>Atrapados: {{ emergency.atrapados }}</p>
+        </ion-text>
+        <ion-text text-left>
+          <p>Inconsientes: {{ emergency.inconsientes }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+        <div class="center">
+          <ion-img [src]="emergency.imageUrl"></ion-img>
+        </div>
+        <ion-text text-left>
+          <p>Descripcion: </p>
+          <p>{{ emergency.descripcion }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="3" offset-sm="3" text-center>
+        <p>{{ emergency.location.address }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="3" offset-sm="3" no-padding>
+        <ion-img class="location-image" [src]="emergency.location.staticMapImageUrl"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button class="space-label" expand="block" (click)="deleteEmergency()">
+          Gestionar Emergencia
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

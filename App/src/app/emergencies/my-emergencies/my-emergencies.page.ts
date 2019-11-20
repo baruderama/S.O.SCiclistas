@@ -44,4 +44,8 @@ export class MyEmergenciesPage implements OnInit, OnDestroy {
     this.router.navigate(['/', 'emergencies', 'tabs', 'my-emergencies', 'edit-emergency', emergencyId]);
   }
 
+  otherEmergency() {
+    this.router.navigateByUrl('/emergencies/tabs/my-emergencies/other-emergencies');
+  }
+
 }

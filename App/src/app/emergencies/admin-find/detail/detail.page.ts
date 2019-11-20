@@ -49,7 +49,7 @@ export class DetailPage implements OnInit {
   }
 
   async deleteEmergency() {
-    //this.send();
+    this.send();
     const alert = await this.alertController.create({
       header: 'Gestionar Emergencia',
       message: '¿Esta seguro que desea gestionar esta emergencia?',
@@ -82,18 +82,25 @@ export class DetailPage implements OnInit {
     await alert.present();
   }
 
-  /*send() {
+  send() {
     let email = {
       to: 'johntonjohn7@gmail.com',
       cc: [],
       bcc: [],
       attachment: [],
-      subject: 'Reporte diario',
-      body: this.body,
+      subject: this.emergency.titulo,
+      body: 'Hay lesionados? '+this.emergency.lesionados
+      +' Esta en el punto del incidente? '+this.emergency.puntoIncidente
+      +' Numero de lesionados: '+this.emergency.numLesionados
+      +' Hay personas atrapadas? '+this.emergency.atrapados
+      +' Hay personas inconcietes? '+this.emergency.inconsientes
+      +' Descripcion: '+this.emergency.descripcion
+      +' Imagen: '+this.emergency.imageUrl
+      +' Ubicacion: '+this.emergency.location
+      +' UserId: '+this.emergency.userId,
       isHtml: false,
       app: 'Gmail'
     };
-    this.emailComposer.open(email);
-
-  }*/
+    this.email.open(email);
+  }
 }

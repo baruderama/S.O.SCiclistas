@@ -7,7 +7,6 @@ import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 var config = {
@@ -31,7 +30,6 @@ export class AppComponent {
     private platform: Platform,
     private authService: AuthService,
     private router: Router,
-    private splashScreen: SplashScreen,
     private statusBar: StatusBar,
   ) {
     this.initializeApp();
