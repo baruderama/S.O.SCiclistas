@@ -1,8 +1,9 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "co.edu.ingesoft.sauveguard",
   "appName": "SOS-Ciclistas",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
-  "cordova": {}
+  "cordova": {},
+  "linuxAndroidStudioPath": "/snap/android-studio/81/android-studio/bin/studio.sh"
 }
